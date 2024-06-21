@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"os"
 
 	_ "github.com/lib/pq"
 )
@@ -21,7 +22,8 @@ type PostgresDB struct {
 }
 
 func NewPostgresDB() (*PostgresDB, error) {
-	connStr := "user=postgres dbname=postgres password=lemm2301 sslmode=disable"
+	// connStr := "user=postgres dbname=postgres password=lemm2301 sslmode=disable"
+	connStr := "user= " + os.Getenv("DATABASE_USER") + " dbname=" + os.Getenv("DATABASE_NAME") + " password=" + os.Getenv("DATABASE_PASSWORD") + " sslmode=disable"
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		log.Fatal(err)
